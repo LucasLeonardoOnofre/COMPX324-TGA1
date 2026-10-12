@@ -1,27 +1,31 @@
+const page = document.body.dataset.page;
+
 //====================================================================
 // Tyzaks Section for budgeting page
-const budget = document.getElementById("budgetInput");
-const bills = document.getElementById("billsInput");
-const car = document.getElementById("carInput");
-const groceries = document.getElementById("groceriesInput");
-const insurances = document.getElementById("insurancesInput");
-const subscriptions = document.getElementById("subscriptionsInput");
-const spending = document.getElementById("spendingInput");
-const savings = document.getElementById("savingsInput");
 
-const inputs = [
-  budget,
-  bills,
-  car,
-  groceries,
-  insurances,
-  subscriptions,
-  spending,
-  savings,
-];
+if (page === "budgeting") {
 
-inputs.forEach((input) => {
-  if (input) {
+  const budget = document.getElementById("budgetInput");
+  const bills = document.getElementById("billsInput");
+  const car = document.getElementById("carInput");
+  const groceries = document.getElementById("groceriesInput");
+  const insurances = document.getElementById("insurancesInput");
+  const subscriptions = document.getElementById("subscriptionsInput");
+  const spending = document.getElementById("spendingInput");
+  const savings = document.getElementById("savingsInput");
+
+  const inputs = [
+    budget,
+    bills,
+    car,
+    groceries,
+    insurances,
+    subscriptions,
+    spending,
+    savings,
+  ];
+
+  inputs.forEach((input) => {
     input.addEventListener("input", () => {
       const total =
         parseFloat(bills.value) +
@@ -38,41 +42,63 @@ inputs.forEach((input) => {
       const savingsAmount = document.getElementById("savingsAmount");
       savingsAmount.textContent = `Savings: $${savings.toFixed(2)}`;
     });
-  }
-});
-
-//====================================================================
-// Details page section
-
-const account1Button = document.querySelector("#account1-button");
-const account2Button = document.querySelector("#account2-button");
-const account3Button = document.querySelector("#account3-button");
-
-const account1Data = {
-  // data
-}
-const account2Data = {
-  // data
-}
-const account3Data = {
-  // data
-}
-
-function passData(btn, data) {
-  btn.addEventListener("click", () => {
-    sessionStorage.setItem("data", JSON.stringify(data));
-    location.href = "connectionDetails.html";
   })
-}
 
-if (account1Button) {
-  passData(account1Button, account1Data);
-}
-if (account2Button) {
-  passData(account2Button, account2Data);
-}
-if (account3Button) {
-  passData(account3Button, account3Data);
 }
 
 //====================================================================
+// Home/Dashboard Page Section
+
+else if (page === "home") {
+
+  const account1Button = document.getElementById("account1-button");
+  const account2Button = document.getElementById("account2-button");
+  const account3Button = document.getElementById("account3-button");
+
+  const account1Data = {
+    title: "Account 1",
+    balance: 1000,
+  }
+  const account2Data = {
+    title: "Account 2",
+    balance: 2000,
+  }
+  const account3Data = {
+    title: "Account 3",
+    balance: 3000,
+  }
+
+  function passData(btn, data) {
+    btn.addEventListener("click", () => {
+      sessionStorage.setItem("connectionDetailsData", JSON.stringify(data));
+      location.href = "connectionDetails.html";
+    })
+  }
+
+  passData(account1Button, account1Data);
+  passData(account2Button, account2Data);
+  passData(account3Button, account3Data);
+
+}
+
+// Connection Details Page Section
+
+else if (page === "connectionDetails") {
+
+  const jsonData = sessionStorage.getItem("connectionDetailsData");
+  const accountTitle = document.getElementById("accountTitle");
+  const accountBalance = document.getElementById("accountBalance");
+
+  if (jsonData) {
+    const data = JSON.parse(jsonData);
+
+    accountTitle.textContent = data.title;
+    accountBalance.textContent = "Total Balance: $" + data.balance;
+  }
+
+}
+
+//====================================================================
+
+else if (page === "") {
+}
