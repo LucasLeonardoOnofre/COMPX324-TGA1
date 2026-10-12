@@ -23,13 +23,14 @@ const inputs = [
 inputs.forEach((input) => {
   input.addEventListener("input", () => {
     const total =
-      parseFloat(bills.value) +
-      parseFloat(car.value) +
-      parseFloat(groceries.value) +
-      parseFloat(insurances.value) +
-      parseFloat(subscriptions.value) +
-      parseFloat(spending.value) +
-      parseFloat(savings.value);
+      parseFloat(bills.value) ||
+      0 + parseFloat(car.value) ||
+      0 + parseFloat(groceries.value) ||
+      0 + parseFloat(insurances.value) ||
+      0 + parseFloat(subscriptions.value) ||
+      0 + parseFloat(spending.value) ||
+      0 + parseFloat(savings.value) ||
+      0;
 
     const remaining = parseFloat(budget.value) - total;
     const remainingElement = document.getElementById("RemainingAmount");
@@ -38,3 +39,6 @@ inputs.forEach((input) => {
     savingsAmount.textContent = `Savings: $${savings.toFixed(2)}`;
   });
 });
+
+function saveBudget() {}
+function exportBudget() {}
