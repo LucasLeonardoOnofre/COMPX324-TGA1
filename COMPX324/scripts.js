@@ -1,18 +1,54 @@
 const appName = "FinPrivSys";
 const page = document.body.dataset.page;
 
+// Set default login token state
+if (!sessionStorage.getItem("loggedIn")) {
+  sessionStorage.setItem("loggedIn", false);
+}
+console.log("Logged in: " + sessionStorage.getItem("loggedIn")); // For testing
+
+//====================================================================
+// Shared Navigation Section
+
+const homeButton = document.getElementById("homeButton");
+const logoutButton = document.getElementById("logoutButton");
+
+if (homeButton) {
+  homeButton.addEventListener("click", (event) => {
+    if (sessionStorage.getItem("loggedIn") === true) {
+      location.href = "home.html";
+    }
+    event.preventDefault();
+  });
+}
+if (logoutButton) {
+  logoutButton.addEventListener("click", (event) => {
+    sessionStorage.setItem("loggedIn", false);
+    location.href = "index.html";
+    event.preventDefault();
+  });
+}
+
 //====================================================================
 // Login/Pin Page Section
 
 if (page === "login") {
-  // ...
+
+  const loginButton = document.getElementById("loginButton");
+  loginButton.addEventListener("click", () => {
+    sessionStorage.setItem("loggedIn", true);
+    location.href = "home.html";
+  });
+
 }
 
 //====================================================================
 // Quick Balances Page Section
 
 else if (page === "quickBalances") {
+
   // ...
+
 }
 
 //====================================================================
@@ -118,21 +154,27 @@ else if (page === "connectionDetails") {
 // Connections List Page Section
 
 else if (page === "connectionsList") {
+
   // ...
+
 }
 
 //====================================================================
 // Add Connection Page Section
 
 else if (page === "connectionsList") {
+
   // ...
+
 }
 
 //====================================================================
 // Manage Connections Page Section
 
 else if (page === "manageConnection") {
+
   // ...
+
 }
 
 //====================================================================
@@ -168,5 +210,7 @@ else if (page === "disconnectService") {
 // Successful Disconnection Page Section
 
 else if (page === "disconnectService") {
+
+  // ...
 
 }
