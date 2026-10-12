@@ -3,9 +3,14 @@ const page = document.body.dataset.page;
 
 // Set default login token state
 if (!sessionStorage.getItem("loggedIn")) {
-  sessionStorage.setItem("loggedIn", false);
+  sessionStorage.setItem("loggedIn", "false");
 }
-console.log("Logged in: " + sessionStorage.getItem("loggedIn")); // For testing
+console.log("Logged in: " + sessionStorage.getItem("loggedIn")); // Print login state for testing
+
+// Redirect to login page if not logged in
+if (page !== "login" && sessionStorage.getItem("loggedIn") === "false") {
+  location.href = "index.html";
+}
 
 //====================================================================
 // Shared Navigation Section
@@ -15,7 +20,7 @@ const logoutButton = document.getElementById("logoutButton");
 
 if (homeButton) {
   homeButton.addEventListener("click", (event) => {
-    if (sessionStorage.getItem("loggedIn") === true) {
+    if (sessionStorage.getItem("loggedIn") === "true") {
       location.href = "home.html";
     }
     event.preventDefault();
@@ -23,7 +28,7 @@ if (homeButton) {
 }
 if (logoutButton) {
   logoutButton.addEventListener("click", (event) => {
-    sessionStorage.setItem("loggedIn", false);
+    sessionStorage.setItem("loggedIn", "false");
     location.href = "index.html";
     event.preventDefault();
   });
@@ -36,7 +41,7 @@ if (page === "login") {
 
   const loginButton = document.getElementById("loginButton");
   loginButton.addEventListener("click", () => {
-    sessionStorage.setItem("loggedIn", true);
+    sessionStorage.setItem("loggedIn", "true");
     location.href = "home.html";
   });
 
