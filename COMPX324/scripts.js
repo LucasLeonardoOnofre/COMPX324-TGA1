@@ -214,8 +214,26 @@ else if (page === "disconnectService") {
 //====================================================================
 // Successful Disconnection Page Section
 
-else if (page === "disconnectService") {
+else if (page === "successfulDisconnect") {
 
-  // ...
+  const jsonData = sessionStorage.getItem("disconnectionData");
+  const disconnectNote1 = document.getElementById("disconnectNote1");
+  const disconnectNote2 = document.getElementById("disconnectNote2");
+  const returnButton = document.getElementById("returnButton");
+  const dashboardButton = document.getElementById("dashboardButton");
+
+  if (jsonData) {
+    const data = JSON.parse(jsonData);
+
+    disconnectNote1.textContent = data.title + " has been disconnected";
+    disconnectNote2.textContent = appName + " can no longer access " + data.title;
+
+    returnButton.addEventListener("click", () => {
+      location.href = "connectionsList.html";
+    });
+    dashboardButton.addEventListener("click", () => {
+      location.href = "home.html";
+    });
+  }
 
 }
