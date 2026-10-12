@@ -1,9 +1,24 @@
+const appName = "FinPrivSys";
 const page = document.body.dataset.page;
+
+//====================================================================
+// Login/Pin Page Section
+
+if (page === "login") {
+  // ...
+}
+
+//====================================================================
+// Quick Balances Page Section
+
+else if (page === "quickBalances") {
+  // ...
+}
 
 //====================================================================
 // Tyzaks Section for budgeting page
 
-if (page === "budgeting") {
+else if (page === "budgeting") {
 
   const budget = document.getElementById("budgetInput");
   const bills = document.getElementById("billsInput");
@@ -51,9 +66,9 @@ if (page === "budgeting") {
 
 else if (page === "home") {
 
-  const account1Button = document.getElementById("account1-button");
-  const account2Button = document.getElementById("account2-button");
-  const account3Button = document.getElementById("account3-button");
+  const account1Button = document.getElementById("account1Button");
+  const account2Button = document.getElementById("account2Button");
+  const account3Button = document.getElementById("account3Button");
 
   const account1Data = {
     title: "Account 1",
@@ -68,19 +83,20 @@ else if (page === "home") {
     balance: 3000,
   }
 
-  function passData(btn, data) {
+  function gotoConnectionDetails(btn, data) {
     btn.addEventListener("click", () => {
       sessionStorage.setItem("connectionDetailsData", JSON.stringify(data));
       location.href = "connectionDetails.html";
-    })
+    });
   }
 
-  passData(account1Button, account1Data);
-  passData(account2Button, account2Data);
-  passData(account3Button, account3Data);
+  gotoConnectionDetails(account1Button, account1Data);
+  gotoConnectionDetails(account2Button, account2Data);
+  gotoConnectionDetails(account3Button, account3Data);
 
 }
 
+//====================================================================
 // Connection Details Page Section
 
 else if (page === "connectionDetails") {
@@ -99,6 +115,58 @@ else if (page === "connectionDetails") {
 }
 
 //====================================================================
+// Connections List Page Section
 
-else if (page === "") {
+else if (page === "connectionsList") {
+  // ...
+}
+
+//====================================================================
+// Add Connection Page Section
+
+else if (page === "connectionsList") {
+  // ...
+}
+
+//====================================================================
+// Manage Connections Page Section
+
+else if (page === "manageConnection") {
+  // ...
+}
+
+//====================================================================
+// Disconnect Service Page Section
+
+else if (page === "disconnectService") {
+
+  const jsonData = sessionStorage.getItem("disconnectionData");
+  const accountTitle = document.getElementById("accountTitle");
+  const disconnectNote1 = document.getElementById("disconnectNote1");
+  const disconnectNote2 = document.getElementById("disconnectNote2");
+  const cancelButton = document.getElementById("cancelButton");
+  const disconnectButton = document.getElementById("disconnectButton");
+
+  if (jsonData) {
+    const data = JSON.parse(jsonData);
+
+    accountTitle.textContent = "Disconnect " + data.title + "?";
+    disconnectNote1.textContent = data.title + " will no longer be accessible by " + appName;
+    disconnectNote2.textContent = "Your " + data.title + " will not be closed";
+
+    cancelButton.addEventListener("click", () => {
+      location.href = "manageConnection.html";
+    });
+    disconnectButton.addEventListener("click", () => {
+      location.href = "successfulDisconnect.html";
+    });
+  }
+
+}
+
+//====================================================================
+// Successful Disconnection Page Section
+
+else if (page === "disconnectService") {
+
 }
