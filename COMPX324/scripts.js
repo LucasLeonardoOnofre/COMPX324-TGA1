@@ -65,7 +65,6 @@ else if (page === "budgeting") {
     const budgetData = sessionStorage.getItem("budgetData");
     if (budgetData) {
       const data = JSON.parse(budgetData);
-      document.getElementById("budgetInput").value = data.budget || 0;
       document.getElementById("billsInput").value = data.bills || 0;
       document.getElementById("carInput").value = data.car || 0;
       document.getElementById("groceriesInput").value = data.groceries || 0;
@@ -75,6 +74,32 @@ else if (page === "budgeting") {
       document.getElementById("spendingInput").value = data.spending || 0;
       document.getElementById("savingsInput").value = data.savings || 0;
     }
+    const budget = document.getElementById("budgetInput");
+    const bills = document.getElementById("billsInput");
+    const car = document.getElementById("carInput");
+    const groceries = document.getElementById("groceriesInput");
+    const insurances = document.getElementById("insurancesInput");
+    const subscriptions = document.getElementById("subscriptionsInput");
+    const spending = document.getElementById("spendingInput");
+    const savings = document.getElementById("savingsInput");
+
+    inputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        const total =
+          (parseFloat(bills.value) || 0) +
+          (parseFloat(car.value) || 0) +
+          (parseFloat(groceries.value) || 0) +
+          (parseFloat(insurances.value) || 0) +
+          (parseFloat(subscriptions.value) || 0) +
+          (parseFloat(spending.value) || 0) +
+          (parseFloat(savings.value) || 0);
+
+        const remaining = parseFloat(budget.value) - total;
+        remainingElement.textContent = `Left: $${remaining.toFixed(2)}`;
+        const savingsAmount = document.getElementById("savingsResult");
+        savingsAmount.textContent = `Savings: $${savings.toFixed(2)}`;
+      });
+    });
   }
 
   function createBudget(amount) {
@@ -114,8 +139,9 @@ else if (page === "budgeting") {
 
         const remaining = parseFloat(budget.value) - total;
         remainingElement.textContent = `Left: $${remaining.toFixed(2)}`;
-        const savingsAmount = document.getElementById("savingsAmount");
-        savingsAmount.textContent = `Savings: $${savings.toFixed(2)}`;
+        const savingsAmount = document.getElementById("savingsResult");
+        const savingMoney = parseFloat(savings.value) || 0;
+        savingsAmount.textContent = `Savings: $${savingMoney.toFixed(2)}`;
       });
     });
   }
