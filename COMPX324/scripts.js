@@ -12,6 +12,64 @@ if (page !== "login" && sessionStorage.getItem("loggedIn") === "false") {
   location.href = "index.html";
 }
 
+// Initialise Connected Accounts
+if (!sessionStorage.getItem("connectedAccounts")) {
+  const initialAccounts = [
+    {
+      title: "BNZ",
+      balance: 1000,
+      savings: 500,
+      kiwisaver: 2000,
+      mortgage: 500000,
+      recentTransactions: [
+        {
+          from: "Spendings",
+          to: "John Doe",
+          amount: 200,
+          date: "2026-06-01",
+        },
+        {
+          from: "Spendings",
+          to: "Savings",
+          amount: 500,
+          date: "2026-01-15",
+        },
+        {
+          from: "Spendings",
+          to: "Jane Smith",
+          amount: 20,
+          date: "2026-09-27",
+        },
+      ],
+    },
+    {
+      title: "StudyLink",
+      balance: 10000,
+      nextPaymentDate: "2026-10-20",
+    },
+    {
+      title: "Sharesies",
+      balance: 3000,
+      stocks: [
+        {
+          symbol: "AAPL",
+          shares: 10,
+          purchasePrice: 300,
+          purchaseDate: "2026-02-12",
+        },
+        {
+          symbol: "GOOG",
+          shares: 5,
+          purchasePrice: 250,
+          purchaseDate: "2026-03-19",
+        }
+      ]
+    }
+  ]
+
+  sessionStorage.setItem("connectedAccounts", JSON.stringify(initialAccounts));
+}
+
 //====================================================================
 // Shared Navigation Section
 
@@ -221,6 +279,13 @@ else if (page === "home") {
   const account1Button = document.getElementById("account1Button");
   const account2Button = document.getElementById("account2Button");
   const account3Button = document.getElementById("account3Button");
+
+  const accountData = JSON.parse(sessionStorage.getItem("connectedAccounts"));
+
+  // console.log(accountData);
+  // for (var i in accountData) { keep working here
+  //   console.log(i);
+  // }
 
   const account1Data = {
     title: "Account 1",
