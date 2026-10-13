@@ -7,12 +7,11 @@
     <title>FinPrivSys</title>
   </head>
   <body data-page="budgeting">
-    <nav></nav>
-  <body>
     <nav>
-      <a href="recentExpenses.html">Back</a>
-      <a href="home.html">Home</a>
-      <a href="settings.html">Settings</a>
+      <p class="title-text">FinPrivSys</p>
+      <a href="javascript:history.back();">Back</a>
+      <a href="" id="homeButton">Dashboard</a>
+      <a href="" id="logoutButton">Logout</a>
     </nav>
     <main>
       <h1>Budgeting</h1>
@@ -30,8 +29,10 @@
       <input type="number" id="savingsInput" placeholder="Savings" />
       <p id="RemainingAmount">Left: $0.00</p>
       <p id="savingsResult">Savings: $0.00</p>
-      <button id="saveButton" onclick="saveBudget()">Save</button>
-      <button id="exportButton" onclick="exportBudget()">Export</button>
+      <button id="saveButton">Save</button>
+      <button id="exportButton">Export</button>
+      <button id="loadData">Load previous budget</button>
+
       <p id="saveResult" style="display: none"></p>
     </main>
     <script type="module" src="scripts.js"></script>
